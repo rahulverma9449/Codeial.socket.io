@@ -1,0 +1,29 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<li id="comment-<%= comment._id %>">
+    <p>
+        <% if (locals.user && locals.user.id == comment.user){ %>
+
+            <small>
+            <a class="delete-comment-button" href="/comments/destroy/<%= comment.id %>"><button type="button" class="btn btn-outline-primary">Delete</button></a>
+        </small>
+            <% } %>
+                <%= comment.content %>
+                    <br>
+                    <small>
+            <%= comment.user.name %>
+        </small>
+                    <!-- CHANGE :: display the likes of this comment, if the user is logged in, then show the link to toggle likes, else, just show the count -->
+                    <!-- study about the data attribute -->
+                    <small>
+            <% if (locals.user){ %>
+                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                        <%= comment.likes.length %> Likes
+                </a>
+            <% }else{ %>
+                <%= comment.likes.length %> Likes
+            <% } %>
+        </small>
+
+    </p>
+
+</li>
